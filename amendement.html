@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Amendement intelligent — Diagnostic des Sols</title>
+  <link rel="stylesheet" href="amendement.css" />
+  <link rel="stylesheet" href="settings-styles.css">
+</head>
+<body>
+  <header role="banner" class="header-card">
+    <h1>🌾 Amendement intelligent</h1>
+     <nav>
+      <a href="Agriculture.html">🏠Accueil</a>
+      <a href="culture.html">🌱Cultures</a>
+      <a href="irrigation.html">💧Irrigation</a>
+      <a href="amendement.html" class="active">🌾Amendement</a>
+      <a href="Maladies.html">🏥Maladie</a>
+      <a href="chatbot.html">🤖 Chatbot</a>
+      <a href="recommandation.html">✨Recommandation</a>
+      <span id="user-session"></span>
+    </nav>
+  </header>
+
+  <div id="announce" class="announce hidden" role="status" aria-live="polite"></div>
+
+  <main class="container" role="main">
+    <section class="card form-card" aria-labelledby="formTitle">
+      <h2 id="formTitle">📋 Choix de la culture</h2>
+
+      <div class="row single">
+        <label for="crop" style="font-weight: 800;">Culture prévue</label>
+        <select id="crop" aria-required="true">
+          <option value="">— Sélectionner une culture —</option>
+          <option value="mais">🌽 Maïs</option>
+          <option value="riz">🍚 Riz</option>
+          <option value="cacao">🍫 Cacao</option>
+          <option value="cafe">☕ Café</option>
+          <option value="tomate">🍅 Tomate</option>
+          <option value="manioc">🥔 Manioc</option>
+          <option value="banane">🍌 Banane</option>
+          <option value="coton">👕 Coton</option>
+          <option value="anacarde">🥜 Anacarde</option>
+        </select>
+      </div>
+
+      <div id="characteristics" class="hidden">
+        <h2>🧪 Caractéristiques de mon sol</h2>
+
+        <div class="row two">
+          <div>
+            <label for="ph">pH du sol</label>
+            <input id="ph" type="number" step="0.1" min="3" max="9" value="6.0" />
+          </div>
+          <div>
+            <label for="om">Matière organique (%)</label>
+            <input id="om" type="number" step="0.1" min="0" max="20" value="2.0" />
+          </div>
+        </div>
+
+        <div class="row three">
+          <div>
+            <label for="n">Azote (N) kg/ha</label>
+            <input id="n" type="number" step="1" min="0" value="50" />
+          </div>
+          <div>
+            <label for="p">Phosphore (P) kg/ha</label>
+            <input id="p" type="number" step="1" min="0" value="20" />
+          </div>
+          <div>
+            <label for="k">Potassium (K) kg/ha</label>
+            <input id="k" type="number" step="1" min="0" value="60" />
+          </div>
+        </div>
+
+        <div class="row three">
+          <div>
+            <label for="texture">Texture</label>
+            <select id="texture">
+              <option value="limoneux">Limoneux</option>
+              <option value="argileux">Argileux</option>
+              <option value="sableux">Sableux</option>
+            </select>
+          </div>
+          <div>
+            <label for="drainage">Drainage</label>
+            <select id="drainage">
+              <option value="bon">Bon</option>
+              <option value="moyen">Moyen</option>
+              <option value="pauvre">Pauvre</option>
+            </select>
+          </div>
+          <div>
+            <label for="retention">Rétention d'eau</label>
+            <select id="retention">
+              <option value="bonne">Bonne</option>
+              <option value="moyenne">Moyenne</option>
+              <option value="faible">Faible</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <label for="salinity">Salinité (dS/m)</label>
+          <input id="salinity" type="number" step="0.1" min="0" placeholder="Optionnel" />
+        </div>
+      </div>
+
+      <div id="previous-block" class="hidden">
+        <h2>🔄 Informations complémentaires</h2>
+        <div class="row">
+          <label for="previous">Culture précédente</label>
+          <input id="previous" type="text" placeholder="ex : haricot, jachère..." />
+        </div>
+
+        <div class="row two">
+          <div>
+            <label for="surface">Surface (hectares)</label>
+            <input id="surface" type="number" step="0.01" min="0.01" value="1.00" />
+          </div>
+          <div>
+            <label for="location">Localisation</label>
+            <input id="location" type="text" placeholder="ex: région, village..." />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="analyze-btn" onclick="analyze()">🔍 Analyser</button>
+          <button id="reset-btn" class="secondary" onclick="resetForm()">🔄 Réinitialiser</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RÉSULTATS -->
+    <section id="results" class="card hidden" aria-live="polite">
+      <div class="results-header">
+        <h2>✨ Résultat du diagnostic</h2>
+        <div class="score-display">
+          <div class="score-svg" aria-hidden="true">
+            <svg id="score-svg" viewBox="0 0 36 36" class="circular-chart">
+              <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              <path id="score-value" class="circle" stroke-dasharray="0,100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              <text id="score-text" x="18" y="20.35" class="percentage">0%</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- diagnostic card conservé (DOM) mais masqué via CSS -->
+      <div id="diagnostic" class="diagnostic-card" aria-hidden="true"></div>
+
+      <div id="problems" class="problems-card"></div>
+
+      <h3>💡 Solutions recommandées</h3>
+      <div id="solutions" class="solutions-grid"></div>
+
+      <h3>📅 Calendrier d'application</h3>
+      <div class="table-container" id="schedule-table"></div>
+
+      <h3>💰 Résumé des prix</h3>
+      <div class="table-container" id="costs-table"></div>
+
+      <div class="export-section">
+        <h3 class="export-title">📥 Télécharger votre rapport</h3>
+        <div class="export-buttons">
+          <button class="export-btn pdf" onclick="exportPDF()">📄 PDF</button>
+          <button class="export-btn excel" onclick="exportExcel()">📊 Excel</button>
+          <button class="export-btn json" onclick="downloadJSON()">💾 JSON</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.min.js"></script>
+  <script src="amendement.js" defer></script>
+    <script src="settings-sync.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

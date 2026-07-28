@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SEGKAFOLOH - Connexion et inscription sécurisée" />
+  <meta name="theme-color" content="#FFD700" />
+  
+  <title>🌾 SEGKAFOLOH — Connexion & Inscription</title>
+  <link rel="stylesheet" href="login.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🌾</text></svg>" />
+</head>
+<body>
+
+  <!-- BACKGROUND IMAGE -->
+  <div class="background-image"></div>
+
+  <!-- AUTH CONTAINER -->
+  <div class="auth-container">
+    <h2 id="form-title">��� Connexion SEG-KAFOLOH </h2>
+
+    <!-- ====== FORMULAIRE CONNEXION ====== -->
+    <form id="loginForm" aria-label="Formulaire de connexion">
+      <label for="username-login">👤 Nom d'utilisateur</label>
+      <input 
+        type="text" 
+        id="username-login" 
+        name="username"
+        required 
+        autocomplete="username" 
+        placeholder="ex: SILUE DOBA AABOUBACAR"
+        aria-label="Entrez votre nom d'utilisateur"
+      />
+
+      <label for="password-login">🔒 Mot de passe</label>
+      <input 
+        type="password" 
+        id="password-login" 
+        name="password"
+        required 
+        autocomplete="current-password" 
+        placeholder="••••••••"
+        aria-label="Entrez votre mot de passe"
+      />
+
+      <button type="submit" class="cta" id="btn-login">
+        <span>🚀 Se connecter</span>
+      </button>
+    </form>
+
+    <!-- ====== FORMULAIRE INSCRIPTION ====== -->
+    <form id="registerForm" style="display:none;" aria-label="Formulaire d'inscription">
+      <label for="nom-register">👤 Nom</label>
+      <input 
+        type="text" 
+        id="nom-register" 
+        name="nom"
+        required 
+        placeholder="ex: Silue"
+        aria-label="Entrez votre nom"
+      />
+
+      <label for="prenom-register">👤 Prénom</label>
+      <input 
+        type="text" 
+        id="prenom-register" 
+        name="prenom"
+        required 
+        placeholder="ex: Doba Aboubacar"
+        aria-label="Entrez votre prénom"
+      />
+
+      <label for="password-register">🔒 Mot de passe</label>
+      <input 
+        type="password" 
+        id="password-register" 
+        name="password"
+        required 
+        autocomplete="new-password" 
+        placeholder="Min. 6 caractères"
+        aria-label="Créez un mot de passe"
+      />
+
+      <label for="password-register2">🔒 Confirmer le mot de passe</label>
+      <input 
+        type="password" 
+        id="password-register2" 
+        name="password-confirm"
+        required 
+        autocomplete="new-password" 
+        placeholder="Répétez le mot de passe"
+        aria-label="Confirmez votre mot de passe"
+      />
+
+      <!-- INFO RÔLE AVANT AVATAR -->
+      <div class="role-info" role="status">
+        <p>👨‍🌾 <strong>Vous vous inscrivez en tant qu'Agriculteur</strong></p>
+        <p>Accès complet à tous les outils SEGKAFOLOH</p>
+      </div>
+
+      <!-- SECTION AVATAR -->
+      <div class="avatar-section">
+        <label for="avatar-register">🖼️ Votre Photo de Profil</label>
+        <div class="avatar-upload-zone" id="avatar-upload-zone">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <p class="upload-text">Cliquez ou glissez votre photo ici</p>
+          <p class="upload-hint">JPG, PNG, GIF - Max 5 MB</p>
+          <input 
+            type="file" 
+            id="avatar-register" 
+            name="avatar"
+            accept="image/*"
+            aria-label="Téléchargez une image de profil"
+          />
+        </div>
+        <div id="avatar-preview" aria-live="polite"></div>
+      </div>
+
+      <!-- Rôle caché -->
+      <input type="hidden" id="role-register" value="agriculteur" />
+
+      <!-- BOUTON S'INSCRIRE EN BAS -->
+      <button type="submit" class="cta alt" id="btn-register">
+        <span>✅ S'inscrire maintenant</span>
+      </button>
+    </form>
+
+    <!-- ====== ÉCRAN CONFIRMATION ====== -->
+    <div id="confirmationScreen" style="display:none; text-align: center;">
+      <div class="confirmation-box">
+        <div class="confirmation-icon">🎉</div>
+        <h2 class="confirmation-title">Inscription Réussie!</h2>
+
+        <div class="user-info-card">
+          <div id="confirmation-avatar" class="confirmation-avatar">
+            <span>👤</span>
+          </div>
+          <div class="user-details">
+            <p class="user-detail-label">Bienvenue</p>
+            <p id="confirmation-name" class="user-detail-name">Doba Aboubacar Silue </p>
+            <p class="user-detail-sublabel">👨‍🌾 Agriculteur SEG-KAFOLOH</p>
+          </div>
+        </div>
+
+        <div class="confirmation-details">
+          <div class="detail-item">
+            <span class="detail-icon">👤</span>
+            <span id="confirmation-username" class="detail-text">Doba_SILUE</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-icon">🔐</span>
+            <span class="detail-text">Mot de passe sécurisé ✓</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-icon">🌾</span>
+            <span class="detail-text">Accès complet aux outils</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-icon">🛡️</span>
+            <span class="detail-text">Données cryptées</span>
+          </div>
+        </div>
+
+        <p class="confirmation-message">✅ Vos données sont sécurisées et enregistrées localement</p>
+
+        <button id="confirmBtn" class="cta confirm-btn">
+          <span>✅ Commencer à utiliser SEG-KAFOLOH</span>
+        </button>
+        <button id="editBtn" class="cta edit-btn">
+          <span>✏️ Modifier les informations</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MESSAGE D'AUTHENTIFICATION -->
+    <div class="auth-message" id="auth-message" role="alert" aria-live="polite"></div>
+
+    <!-- LIEN DE BASCULEMENT -->
+    <span class="switch-link" id="switch-link" role="button" tabindex="0">
+      ➕ Pas encore de compte ? Inscris-toi !
+    </span>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>

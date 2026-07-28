@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🤖 SEG-KAFOLOH IA - Assistant Agricole</title>
+  <link rel="stylesheet" href="chatbot.css">
+  <link rel="stylesheet" href="settings-styles.css">
+</head>
+<body>
+  <div class="background-image"></div>
+
+  <!-- SIDEBAR COLLAPSIBLE -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2 id="sidebar-title">💬 Conversations</h2>
+      <button class="sidebar-collapse-btn" id="collapse-btn" title="Plier la sidebar">◀</button>
+    </div>
+
+    <button class="new-chat-btn" id="new-chat-btn">
+      <span class="btn-icon">➕</span>
+      <span class="btn-text">Nouvelle conversation</span>
+    </button>
+
+    <div class="conversations-list" id="conversations-list">
+      <!-- Les conversations seront ajoutées ici dynamiquement -->
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="clear-all-btn" id="clear-all-btn">
+        <span class="btn-icon">🗑️</span>
+        <span class="btn-text">Effacer tout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- TOGGLE BUTTON QUAND SIDEBAR PLIÉ -->
+  <button class="sidebar-toggle-floating" id="sidebar-toggle-floating" title="Ouvrir la sidebar">☰</button>
+
+  <!-- OVERLAY MOBILE -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <div class="main-content">
+    <header>
+      <h1>🤖 SEG-KAFOLOH IA</h1>
+      <nav>
+        <a href="Agriculture.html">🏠 Accueil</a>
+        <a href="culture.html">🌱 Cultures</a>
+        <a href="irrigation.html">💧 Irrigation</a>
+        <a href="amendement.html">🌾 Amendement</a>
+        <a href="maladies.html">🦠 Maladies</a>
+        <a href="chatbot.html" class="active">🤖 Chatbot IA</a>
+          <a href="recommandation.html">✨Recommandation</a>
+        <span id="user-session"></span>
+      </nav>
+    </header>
+
+    <main>
+      <div class="intro-message" id="intro-message">
+        <h2>💬 Assistant Agricole Alimenté par IA</h2>
+        <p>Posez vos questions agricoles en français !</p>
+      </div>
+
+      <section class="chatbot-container">
+        <div class="chat-wrapper">
+          <div class="chat-messages" id="chat-messages">
+            <!-- Les messages seront ajoutés ici -->
+          </div>
+
+          <div class="chat-input-area">
+            <form id="chat-form" class="chat-form">
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="user-input"
+                  placeholder="Posez votre question agricole..."
+                  autocomplete="off"
+                >
+                <button type="submit" class="send-btn" id="send-btn">📤</button>
+              </div>
+            </form>
+            <div class="typing-indicator" id="typing-indicator">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="chatbot.js"></script>
+    <script src="settings-sync.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

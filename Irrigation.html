@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>💧 Irrigation - Calculateur d'Eau</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="Irrigation.css">
+  <link rel="stylesheet" href="settings-styles.css">
+</head>
+<body>
+  <div class="background-image"></div>
+  
+  <header>
+    <h1>💧 Irrigation - Calculateur d'Eau</h1>
+    <nav>
+      <a href="Agriculture.html">🏠 Accueil</a>
+      <a href="culture.html">🌱 Cultures</a>
+      <a href="irrigation.html" class="active">💧 Irrigation</a>
+      <a href="amendement.html">🌾 Amendement</a>
+      <a href="maladies.html">🏥 Maladies</a>
+      <a href="chatbot.html">🤖 Chatbot</a>
+      <a href="recommandation.html">✨Recommandation</a>
+      <span id="user-session"></span>
+    </nav>
+  </header>
+
+  <main>
+    <div class="intro-message">
+      <h2>Combien d'eau pour mes cultures? 💧</h2>
+      <p>📱 C'est facile! Choisissez votre culture et la taille de votre champ. L'application calcule l'eau pour vous.</p>
+    </div>
+
+    <section class="culture-container">
+      
+      <!-- ÉTAPE 1: Sélectionner la culture -->
+      <div class="zone-selector">
+        <div style="font-size:3em; margin-bottom:0.5em;">🌱</div>
+        <label for="culture-select" style="font-size:1.3em;">ÉTAPE 1️⃣ - Choisir votre culture</label>
+        <select id="culture-select">
+          <option value="">👇 -- TAP POUR CHOISIR --</option>
+        </select>
+      </div>
+
+      <!-- AFFICHAGE PRINCIPAL -->
+      <div class="zone-display" id="irrigation-display" style="display:none;">
+        <div class="zone-card">
+          
+          <!-- INFO CULTURE -->
+          <div class="zone-header">
+            <div>
+              <h2 id="culture-name"></h2>
+              <p id="culture-type" class="zone-description"></p>
+            </div>
+            <div class="zone-icon" id="culture-icon">🌱</div>
+          </div>
+
+          <!-- ÉTAPE 2: TAILLE DU CHAMP -->
+          <div class="zone-info-section">
+            <h3>📏 ÉTAPE 2️⃣ - Quelle taille votre champ?</h3>
+            <div style="text-align:center;">
+              <div style="font-size:2.5em; margin:1em 0;">📐</div>
+              <label for="surface-input" style="display:block; margin-bottom:1em; font-size:1.2em; font-weight:bold;">
+                Entrer la surface en m² (ou hectares)
+              </label>
+              <div style="display:flex; gap:0.5em; justify-content:center; flex-wrap:wrap;">
+                <input 
+                  type="number" 
+                  id="surface-input" 
+                  min="1" 
+                  step="1"
+                  placeholder="Ex: 1000" 
+                  style="flex:1; max-width:200px; padding:1em; border:3px solid #27ae60; border-radius:10px; font-size:1.1em;"
+                >
+                <select id="unit-select" style="padding:1em; border:3px solid #27ae60; border-radius:10px; font-size:1.1em;">
+                  <option value="m2">m²</option>
+                  <option value="ha">hectares</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- ÉTAPE 3: CHOISIR LA MÉTHODE SIMPLE -->
+          <div class="zone-info-section">
+            <h3>🧮 ÉTAPE 3️⃣ - Méthode de calcul</h3>
+            
+            <div class="simple-mode">
+              <label style="display:flex; align-items:center; gap:1em; padding:1em; background:#f9f9f9; border-radius:10px; cursor:pointer; margin-bottom:1em; border:2px solid transparent; transition:all 0.3s;">
+                <input type="radio" name="calculation-mode" value="simple" checked style="width:20px; height:20px; cursor:pointer;">
+                <span style="flex:1; font-size:1.1em;">
+                  <strong>🟢 MODE SIMPLE (Plus facile)</strong><br>
+                  <small>Choisir juste la saison</small>
+                </span>
+              </label>
+              
+              <label style="display:flex; align-items:center; gap:1em; padding:1em; background:#f9f9f9; border-radius:10px; cursor:pointer; border:2px solid transparent; transition:all 0.3s;">
+                <input type="radio" name="calculation-mode" value="advanced" style="width:20px; height:20px; cursor:pointer;">
+                <span style="flex:1; font-size:1.1em;">
+                  <strong>🔵 MODE AVANCÉ (Précis)</strong><br>
+                  <small>Ajouter température, pluie, etc.</small>
+                </span>
+              </label>
+            </div>
+
+            <!-- MODE SIMPLE -->
+            <div id="simple-params" class="method-params">
+              <label style="display:block; font-weight:bold; margin-bottom:1em; font-size:1.15em;">
+                Quelle saison avez-vous maintenant?
+              </label>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:1em;">
+                <button type="button" class="season-btn" data-season="rain" style="padding:1.5em; font-size:1.2em; border-radius:10px;">
+                  🌧️<br>SAISON<br>PLUIE
+                </button>
+                <button type="button" class="season-btn" data-season="dry" style="padding:1.5em; font-size:1.2em; border-radius:10px;">
+                  ☀️<br>SAISON<br>SÈCHE
+                </button>
+              </div>
+            </div>
+
+            <!-- MODE AVANCÉ -->
+            <div id="advanced-params" class="method-params" style="display:none;">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:1em;">
+                <div>
+                  <label style="display:block; font-weight:bold; margin-bottom:0.5em; font-size:1em;">
+                    🌡️ Température (°C)
+                  </label>
+                  <input type="number" id="temp-input" min="15" max="40" value="25" step="1" style="width:100%; padding:0.8em; border:2px solid #e8f5e9; border-radius:8px; font-size:1.05em;">
+                </div>
+                <div>
+                  <label style="display:block; font-weight:bold; margin-bottom:0.5em; font-size:1em;">
+                    💨 Humidité (%)
+                  </label>
+                  <input type="number" id="humidity-input" min="20" max="100" value="70" step="5" style="width:100%; padding:0.8em; border:2px solid #e8f5e9; border-radius:8px; font-size:1.05em;">
+                </div>
+                <div>
+                  <label style="display:block; font-weight:bold; margin-bottom:0.5em; font-size:1em;">
+                    🌧️ Pluie ce mois (mm)
+                  </label>
+                  <input type="number" id="rainfall-input" min="0" max="500" value="50" step="10" style="width:100%; padding:0.8em; border:2px solid #e8f5e9; border-radius:8px; font-size:1.05em;">
+                </div>
+                <div>
+                  <label style="display:block; font-weight:bold; margin-bottom:0.5em; font-size:1em;">
+                    💨 Vent (km/h)
+                  </label>
+                  <input type="number" id="wind-input" min="0" max="30" value="10" step="2" style="width:100%; padding:0.8em; border:2px solid #e8f5e9; border-radius:8px; font-size:1.05em;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOUTON CALCUL GÉANT -->
+          <div style="text-align:center; margin:2em 0;">
+            <button id="calc-btn" class="btn-calculate" style="font-size:1.5em; padding:1.5em 3em;">
+              🧮 CALCULER L'EAU 💧
+            </button>
+          </div>
+
+          <!-- RÉSULTAT -->
+          <div class="zone-info-section" id="calculation-result" style="display:none; background:linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%); border-left-color:#1b5e20;">
+            <h3 style="color:#1b5e20; font-size:1.5em;">✅ RÉSULTAT</h3>
+            <div id="result-text" style="font-size:1.15em; line-height:2;"></div>
+          </div>
+
+          <!-- CONSEILS -->
+          <div class="tips-section">
+            <h3>💡 Comment arroser votre culture?</h3>
+            <div id="irrigation-tips"></div>
+          </div>
+
+          <!-- CALENDRIER -->
+          <div class="seasonal-section">
+            <h3>📅 Quand arroser pendant l'année?</h3>
+            <div id="irrigation-calendar"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- MESSAGE PAS DE SÉLECTION -->
+      <div class="no-selection" id="no-selection">
+        <div style="font-size:5em; margin-bottom:1em;">👇</div>
+        <p style="font-size:1.3em; font-weight:bold;">Choisis ta culture en haut pour commencer! 👆</p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="irrigation.js"></script>
+    <script src="settings-sync.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

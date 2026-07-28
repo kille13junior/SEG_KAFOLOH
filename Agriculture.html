@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> SEG-KAFOLOH - Aide à la Décision Agricole</title>
+  <link rel="stylesheet" href="agriculture.css">
+  <link rel="stylesheet" href="settings-styles.css">
+</head>
+<body>
+  <div class="background-image"></div>
+  
+  <!-- Canvas pour animations -->
+  <canvas id="feu-artifice-canvas"></canvas>
+  
+  <!-- PNJ Bienvenue -->
+  <div id="pnj-bienvenue">
+    <div class="pnj-avatar">
+      <img src="pnj.png" alt="SEG-KAFOLOH Bot" />
+    </div>
+    <div class="pnj-message" id="pnj-message-text" data-i18n="bienvenue">Bienvenue sur SEGKAFOLOH ! 🌾</div>
+  </div>
+
+  <header>
+    <h1><span data-i18n="seg_kafoloh">SEG-KAFOLOH</span> 🌾</h1>
+    <nav>
+      <ul class="main-menu">
+        <li><a href="Agriculture.html" class="active" data-i18n="accueil">🏠Accueil</a></li>
+        <li><a href="culture.html" data-i18n="cultures">🌱Cultures</a></li>
+        <li><a href="irrigation.html" data-i18n="irrigation">💧Irrigation</a></li>
+        <li><a href="amendement.html" data-i18n="amendement">🌾Amendement</a></li>
+        <li><a href="maladies.html" data-i18n="maladies">🏥Maladies</a></li>
+        <li><a href="chatbot.html" data-i18n="chatbot">🤖 Chatbot</a></li>
+        <li><a href="recommandation.html" data-i18n="recommandation">✨Recommandation de culture</a></li>
+      </ul>
+      <a href="login.html" class="btn-login" id="btn-login-link" data-i18n="connexion">Connexion</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro-message">
+      <h2 data-i18n="optimisez">Optimisez vos rendements agricoles</h2>
+      <p data-i18n="description_accueil">SEG-KAFOLOH vous aide à prendre les meilleures décisions pour votre exploitation grâce à des outils intelligents et adaptés à votre climat.</p>
+    </section>
+
+    <section class="modules">
+      <div class="module-card culture-card" onclick="location.href='culture.html'">
+        <h3>🌱 <span data-i18n="cultures">Cultures</span></h3>
+        <p data-i18n="decouvrez_cultures">Découvrez les cultures recommandées selon votre région et votre climat.</p>
+        <a class="cta cta-culture" href="culture.html" data-i18n="explorer">Explorer →</a>
+      </div>
+
+      <div class="module-card irrigation-card" onclick="location.href='irrigation.html'">
+        <h3>💧 <span data-i18n="irrigation">Irrigation</span></h3>
+        <p data-i18n="calculez_irrigation">Calculez précisément la quantité d'eau nécessaire pour vos cultures.</p>
+        <a class="cta cta-irrigation" href="irrigation.html" data-i18n="calculer">Calculer →</a>
+      </div>
+
+      <div class="module-card amendement-card" onclick="location.href='amendement.html'">
+        <h3>🌾 <span data-i18n="amendement">Amendement</span></h3>
+        <p data-i18n="ameliorer_plantation">Améliorer la production de votre plantation avec des techniques d'amélioration.</p>
+        <a class="cta cta-amendement" href="amendement.html" data-i18n="ameliorer">Améliorer →</a>
+      </div>
+
+    
+      <div class="module-card maladies-card" onclick="location.href='maladies.html'">
+        <h3>🔍 <span data-i18n="maladies">Maladies</span></h3>
+        <p data-i18n="identifier_maladies">Identifiez les maladies de vos plantes et obtenez des solutions.</p>
+        <a class="cta cta-maladies" href="maladies.html" data-i18n="diagnostiquer">Diagnostiquer →</a>
+      </div>
+
+      <div class="module-card chatbot-card" onclick="location.href='chatbot.html'">
+        <h3>🤖 <span data-i18n="chatbot">Chatbot</span></h3>
+        <p data-i18n="posez_questions">Posez vos questions et recevez des réponses automatiques instantanées.</p>
+        <a class="cta cta-chatbot" href="chatbot.html" data-i18n="discuter">Discuter →</a>
+      </div>
+
+      <div class="module-card recommandation-card" onclick="location.href='recommandation_culture.html'">
+        <h3>✨ <span data-i18n="recommandation">Recommandation de culture</span></h3>
+        <p data-i18n="systeme_recommandation">Système de recommandation de culture avec le machine learning.</p>
+        <a class="cta cta-irrigation" href="recommandation.html" data-i18n="recommander">Recommander →</a>
+      </div>
+    </section>
+
+    <section class="message-original">
+      <blockquote>
+        « <span data-i18n="citation">Une bonne décision agricole commence par une bonne information.</span> »<br>
+        <small data-i18n="seg_kafoloh">- SEG-KAFOLOH</small>
+      </blockquote>
+    </section>
+  </main>
+
+  <script src="settings-sync.js"></script>
+  <script src="settings.js"></script>
+  <script src="settings-modal.js"></script>
+  <script src="pnj.js"></script>
+  <script src="feu_artifice.js"></script>
+  <script src="session.js"></script>
+</body>
+</html>

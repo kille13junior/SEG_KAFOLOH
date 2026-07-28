@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Cultures Côte d'Ivoire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="culture.css">
+  <link rel="stylesheet" href="settings-styles.css">
+</head>
+<body>
+  <div class="background-image"></div>
+  
+  <header>
+    <h1>🌾 Cultures Côte d'Ivoire</h1>
+    <nav>
+      <a href="Agriculture.html">🏠Accueil</a>
+      <a href="culture.html" class="active">🌱Cultures</a>
+      <a href="irrigation.html">💧Irrigation</a>
+      <a href="amendement.html">🌾Amendement</a>
+      <a href="maladies.html">🏥Maladies</a>
+      <a href="chatbot.html">🤖 Chatbot</a>
+      <a href="recommandation">✨Recommandation</a>
+      <span id="user-session"></span>
+    </nav>
+  </header>
+
+  <main>
+    <div class="intro-message">
+      <h2>Guide des Cultures par Région</h2>
+      <p>Découvrez les cultures les mieux adaptées à votre région et recevez des recommandations détaillées pour optimiser votre production</p>
+    </div>
+
+    <section class="culture-container">
+      <div class="zone-selector">
+        <label for="zone-select">📍 Choisir votre zone agricole:</label>
+        <select id="zone-select">
+          <option value="">-- Sélectionne une zone --</option>
+          <option value="Zone Côtière (Sud)">🌊 Zone Côtière (Sud) - Abidjan, Grand-Bassam, Jacqueville</option>
+          <option value="Zone Forestière Centrale">🌳 Zone Forestière Centrale - Yamoussoukro, Toumodi, Dimbokro</option>
+          <option value="Zone de Transition">🌤️ Zone de Transition - Bouaké, Kossou, Adzopé</option>
+          <option value="Zone Soudanienne (Nord)">🌵 Zone Soudanienne (Nord) - Korhogo, Odienné, Boundiali</option>
+          <option value="Zone Côtière Occidentale">🌊 Zone Côtière Occidentale - San-Pédro, Sassandra, Tabou</option>
+          <option value="Zone Montagneuse (Ouest)">⛰️ Zone Montagneuse (Ouest) - Man, Danané, Biankouma</option>
+        </select>
+      </div>
+
+      <div class="zone-display" id="zone-display" style="display:none;">
+        <div class="zone-card">
+          <div class="zone-header">
+            <div>
+              <h2 id="zone-name"></h2>
+              <p id="zone-description" class="zone-description"></p>
+              <p id="zone-villes" class="zone-villes"></p>
+            </div>
+            <div class="zone-icon" id="zone-icon"></div>
+          </div>
+
+          <div class="zone-info-section">
+            <h3>📋 Caractéristiques de la Zone</h3>
+            <div id="zone-characteristics"></div>
+          </div>
+
+          <div class="cultures-section">
+            <h3>🌱 Cultures Recommandées</h3>
+            <div class="cultures-grid" id="cultures-grid"></div>
+          </div>
+
+          <div class="seasonal-section">
+            <h3>📅 Calendrier Agricole</h3>
+            <div id="seasonal-calendar"></div>
+          </div>
+
+          <div class="tips-section">
+            <h3>💡 Conseils Généraux pour la Zone</h3>
+            <div id="zone-tips"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-selection" id="no-selection">
+        <p>Sélectionne une zone pour voir les cultures recommandées 👆</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="culture.js"></script>
+  <script src="settings-sync.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

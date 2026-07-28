@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diagnostic Maladies - SEGKAFOLOH</title>
+  <link rel="stylesheet" href="maladies.css">
+  <link rel="stylesheet" href="settings-styles.css">
+  <!-- TensorFlow.js et modèles pré-entraînés -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+</head>
+<body>
+  <div class="background-image"></div>
+  
+  <header>
+    <h1>🌾 Diagnostic Maladies - SEG-KAFOLOH</h1>
+    <nav>
+      <a href="Agriculture.html">🏠Accueil</a>
+      <a href="culture.html">🌱Cultures</a>
+      <a href="irrigation.html">💧Irrigation</a>
+      <a href="amendement.html">🌾Amendement</a>
+      <a href="maladies.html" class="active">🏥Maladies</a>
+      <a href="chatbot.html">🤖 Chatbot</a>
+      <a href="recommandation.html">✨Recommandation</a>
+      <span id="user-session"></span>
+    </nav>
+  </header>
+
+  <main>
+    <div class="intro-message">
+      <h2>🔍 Diagnostic de Maladies des Plantes</h2>
+      <p>Décrivez les symptômes ou analysez une photo avec notre IA pour identifier la maladie.</p>
+    </div>
+
+    <section class="diagnostic-container">
+      <!-- Onglets de diagnostic -->
+      <div class="diagnosis-tabs">
+        <button class="tab-btn active" data-tab="symptomes-tab">📋 Par Symptômes</button>
+        <button class="tab-btn" data-tab="image-tab">📸 Par Image (IA)</button>
+      </div>
+
+      <!-- TAB 1: DIAGNOSTIC PAR SYMPTÔMES -->
+      <div id="symptomes-tab" class="tab-content active">
+        <div class="form-wrapper">
+          <div class="diagnostic-form">
+            <h3>📋 Formulaire de Diagnostic</h3>
+            
+            <div class="form-group">
+              <label for="type-plante">Type de plante *</label>
+              <select id="type-plante" required>
+                <option value="">-- Sélectionnez une plante --</option>
+                <option value="tomate">🍅 Tomate</option>
+                <option value="mais">🌽 Maïs</option>
+                <option value="ble">🌾 Blé</option>
+                <option value="pomme_terre">🥔 Pomme de terre</option>
+                <option value="laitue">🥬 Laitue</option>
+                <option value="carotte">🥕 Carotte</option>
+                <option value="betterave">🍠 Betterave</option>
+                <option value="courge">🎃 Courge</option>
+                <option value="raisin">🍇 Raisin</option>
+                <option value="courgette">🥒 Courgette</option>
+                <option value="poivron">🫑 Poivron</option>
+                <option value="aubergine">🍆 Aubergine</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Partie affectée *</label>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="partie" value="feuilles"> Feuilles</label>
+                <label><input type="checkbox" name="partie" value="tige"> Tige</label>
+                <label><input type="checkbox" name="partie" value="racines"> Racines</label>
+                <label><input type="checkbox" name="partie" value="fruits"> Fruits/Grains</label>
+                <label><input type="checkbox" name="partie" value="fleurs"> Fleurs</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="symptomes">Décrivez les symptômes observés *</label>
+              <textarea id="symptomes" placeholder="Ex: Taches brunes circulaires avec anneaux, poudre blanche, flétrissement..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="severite">Niveau de gravité *</label>
+              <div class="severity-selector">
+                <button class="severity-btn" data-level="1" type="button">
+                  <span class="level-dot"></span>
+                  <span>Légère</span>
+                </button>
+                <button class="severity-btn" data-level="2" type="button">
+                  <span class="level-dot"></span>
+                  <span>Modérée</span>
+                </button>
+                <button class="severity-btn" data-level="3" type="button">
+                  <span class="level-dot"></span>
+                  <span>Grave</span>
+                </button>
+              </div>
+              <input type="hidden" id="severity-level" value="">
+            </div>
+
+            <div class="form-group">
+              <label for="duree">Depuis combien de temps? *</label>
+              <select id="duree" required>
+                <option value="">-- Sélectionnez --</option>
+                <option value="moins_1_semaine">Moins de 1 semaine</option>
+                <option value="1_2_semaines">1 à 2 semaines</option>
+                <option value="3_4_semaines">3 à 4 semaines</option>
+                <option value="plus_1_mois">Plus d'1 mois</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Conditions météorologiques récentes</label>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="conditions" value="humidite"> Très humide</label>
+                <label><input type="checkbox" name="conditions" value="pluie"> Pluies fréquentes</label>
+                <label><input type="checkbox" name="conditions" value="chaleur"> Chaleur intense</label>
+                <label><input type="checkbox" name="conditions" value="sechresse"> Sécheresse</label>
+              </div>
+            </div>
+
+            <button id="btn-diagnostic" class="btn-primary" type="button">🔍 Lancer le diagnostic</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: DIAGNOSTIC PAR IMAGE (IA NEURAL NETWORK) -->
+      <div id="image-tab" class="tab-content">
+        <div class="image-diagnostic-form">
+          <div class="diagnostic-form">
+            <h3>📸 Diagnostic par Image</h3>
+            <p style="color: #666; font-size: 0.95em; margin-bottom: 1.5em;">
+              🤖 <strong>IA Avancée:</strong> Utilise un réseau de neurones profonds pour analyser votre image en temps réel. Aucune donnée n'est envoyée à un serveur.
+            </p>
+            
+            <!-- Options d'upload -->
+            <div class="image-upload-options">
+              <div class="upload-option">
+                <label for="camera-input" class="upload-btn camera-btn">
+                  📷 Prendre une Photo
+                </label>
+                <input 
+                  type="file" 
+                  id="camera-input" 
+                  accept="image/*" 
+                  capture="environment"
+                  style="display: none;"
+                >
+              </div>
+              
+              <div class="upload-option">
+                <label for="image-input" class="upload-btn gallery-btn">
+                  🖼️ Charger une Image
+                </label>
+                <input 
+                  type="file" 
+                  id="image-input" 
+                  accept="image/*"
+                  style="display: none;"
+                >
+              </div>
+            </div>
+
+            <!-- Aperçu de l'image -->
+            <div id="image-preview-container" class="image-preview-container" style="display: none;">
+              <div class="preview-header">
+                <h4>Aperçu de l'image:</h4>
+                <button type="button" class="btn-close-preview">✕</button>
+              </div>
+              <img id="preview-image" src="" alt="Aperçu">
+              <p id="file-name-display"></p>
+            </div>
+
+            <!-- Info plante pour image -->
+            <div class="form-group" id="image-plant-info">
+              <label for="image-plant-type">Type de plante sur l'image *</label>
+              <select id="image-plant-type" required>
+                <option value="">-- Sélectionnez --</option>
+                <option value="tomate">🍅 Tomate</option>
+                <option value="mais">🌽 Maïs</option>
+                <option value="ble">🌾 Blé</option>
+                <option value="pomme_terre">🥔 Pomme de terre</option>
+                <option value="laitue">🥬 coton</option>
+                <option value="carotte">🥕 Carotte</option>
+                <option value="betterave">🍠 Betterave</option>
+                <option value="courge">🎃 Anacarde</option>
+                <option value="raisin">🍇 Raisin</option>
+                <option value="courgette">🥒 Courgette</option>
+                <option value="poivron">🫑 Poivron</option>
+                <option value="aubergine">🍆 Aubergine</option>
+              </select>
+            </div>
+
+            <button id="btn-image-diagnostic" class="btn-primary" type="button" disabled>
+              🤖 Analyser avec l'IA
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Résultats -->
+      <div class="results-wrapper" id="results-wrapper" style="display:none;">
+        <div class="diagnostic-results">
+          <h3>📊 Résultats du Diagnostic</h3>
+          <div id="results-container"></div>
+          <button id="btn-nouveau-diagnostic" class="btn-secondary" type="button">← Nouveau diagnostic</button>
+        </div>
+      </div>
+
+      <div class="no-selection" id="no-selection">
+        <p>Remplissez le formulaire ou chargez une image et lancez le diagnostic 👆</p>
+      </div>
+    </section>
+
+    <section class="message-original">
+      <blockquote>
+        « La prévention est toujours meilleure que le traitement. »<br>
+        <small>- SEG-KAFOLOH</small>
+      </blockquote>
+    </section>
+  </main>
+
+  <!-- Modal de chargement -->
+  <div id="loading-modal" class="loading-modal" style="display: none;">
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p id="loading-text">Chargement du modèle IA...</p>
+      <div class="progress-bar">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+      <p id="progress-text">0%</p>
+    </div>
+  </div>
+
+  <script src="maladies.js"></script>
+      <script src="settings-sync.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

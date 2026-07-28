@@ -1,0 +1,819 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7f8fa;
+  min-height: 100vh;
+  color: #222;
+}
+
+.background-image {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: -1;
+  background: url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+  opacity: 0.23;
+  filter: blur(2px);
+}
+
+header {
+  background: #f0f9f7;
+  color: #2d6a4f;
+  text-align: center;
+  padding: 1.2em 0 0.7em 0;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  box-shadow: 0 2px 14px rgba(45, 106, 79, 0.1);
+}
+
+header h1 {
+  margin: 0.2em 0;
+  font-size: 2.2em;
+  font-weight: bold;
+  color: #2d6a4f;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+  margin: 1em 0 2em 0;
+  flex-wrap: wrap;
+}
+
+nav a {
+  text-decoration: none;
+  color: #27ae60;
+  font-weight: bold;
+  padding: 7px 18px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+nav a.active,
+nav a:hover {
+  background: #a8d5ba;
+  color: #1b5e20;
+}
+
+#user-session {
+  margin-left: 2em;
+  font-weight: bold;
+  background: #f0f9f7;
+  color: #2d6a4f;
+  padding: 0.4em 1em;
+  border-radius: 18px;
+  border: 1.5px solid #a8d5ba;
+}
+
+.intro-message {
+  max-width: 900px;
+  margin: 2em auto;
+  padding: 0 1.5em;
+  text-align: center;
+}
+
+.intro-message h2 {
+  color: #2d6a4f;
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+
+.intro-message p {
+  color: #555;
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+.diagnostic-container {
+  max-width: 900px;
+  margin: 2em auto;
+  padding: 0 1.5em;
+}
+
+/* Wrapper pour formulaire et résultats */
+.form-wrapper,
+.results-wrapper {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Formulaire de diagnostic */
+.diagnostic-form {
+  background: linear-gradient(135deg, #f0f9f7 0%, #e8f5f0 100%);
+  border-radius: 18px;
+  padding: 2em 1.5em;
+  box-shadow: 0 4px 20px rgba(45, 106, 79, 0.15);
+  border: 2px solid #a8d5ba;
+  border-left: 5px solid #27ae60;
+}
+
+.diagnostic-form h3 {
+  color: #2d6a4f;
+  font-size: 1.8em;
+  margin: 0 0 1.5em 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+/* Groupe de formulaire */
+.form-group {
+  margin-bottom: 1.8em;
+}
+
+.form-group label {
+  display: block;
+  color: #2d6a4f;
+  font-weight: bold;
+  margin-bottom: 0.8em;
+  font-size: 1.05em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="number"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.9em 1.2em;
+  border: 2px solid #a8d5ba;
+  border-radius: 10px;
+  font-size: 1em;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="number"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #27ae60;
+  background: #f9fff8;
+  box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Groupe de cases à cocher */
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1em;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  margin-bottom: 0;
+  cursor: pointer;
+  font-weight: 500;
+  color: #555;
+  font-size: 0.95em;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #27ae60;
+  flex-shrink: 0;
+}
+
+/* Sélecteur de gravité */
+.severity-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+}
+
+.severity-btn {
+  padding: 1.2em 1em;
+  border: 2px solid #a8d5ba;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8em;
+  font-size: 1em;
+  font-weight: 600;
+  color: #2d6a4f;
+}
+
+.severity-btn:hover {
+  border-color: #27ae60;
+  background: rgba(39, 174, 96, 0.05);
+}
+
+.severity-btn.active {
+  border-color: #27ae60;
+  background: #27ae60;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+}
+
+.level-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.3;
+}
+
+.severity-btn.active .level-dot {
+  opacity: 1;
+}
+
+/* Boutons */
+.btn-primary,
+.btn-secondary {
+  width: 100%;
+  padding: 1.1em 2em;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.btn-primary {
+  background: #27ae60;
+  color: #fff;
+  margin-top: 1em;
+}
+
+.btn-primary:hover {
+  background: #229954;
+  box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: #95a5a6;
+  color: #fff;
+  margin-top: 1.5em;
+}
+
+.btn-secondary:hover {
+  background: #7f8c8d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Section des résultats */
+.diagnostic-results {
+  background: linear-gradient(135deg, #f0f9f7 0%, #e8f5f0 100%);
+  border-radius: 18px;
+  padding: 2em 1.5em;
+  box-shadow: 0 4px 20px rgba(45, 106, 79, 0.15);
+  border: 2px solid #a8d5ba;
+  border-left: 5px solid #27ae60;
+}
+
+.diagnostic-results h3 {
+  color: #2d6a4f;
+  font-size: 1.8em;
+  margin: 0 0 1.5em 0;
+}
+
+#results-container {
+  display: grid;
+  gap: 1.5em;
+  margin-bottom: 2em;
+}
+
+/* Carte de maladie */
+.disease-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 1.5em;
+  box-shadow: 0 2px 10px rgba(45, 106, 79, 0.1);
+  border-left: 4px solid #27ae60;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.disease-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2em;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.disease-name {
+  font-size: 1.6em;
+  color: #2d6a4f;
+  font-weight: bold;
+  margin: 0;
+}
+
+.confidence-score {
+  background: linear-gradient(135deg, #27ae60, #229954);
+  color: #fff;
+  padding: 0.6em 1.2em;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1.05em;
+}
+
+.disease-description {
+  background: #f9fff8;
+  padding: 1.2em;
+  border-radius: 10px;
+  margin-bottom: 1.2em;
+  border-left: 4px solid #ebfa18;
+  line-height: 1.7;
+  color: #555;
+}
+
+/* Sections de traitement */
+.treatment-section {
+  margin-bottom: 1.2em;
+}
+
+.treatment-section h4 {
+  color: #2d6a4f;
+  font-size: 1.2em;
+  margin: 0 0 0.8em 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.treatment-content {
+  background: linear-gradient(135deg, rgba(39, 174, 96, 0.05), rgba(232, 245, 233, 0.1));
+  padding: 1em;
+  border-radius: 8px;
+  border-left: 4px solid #f6fa0f;
+  line-height: 1.7;
+  color: #555;
+  font-size: 0.95em;
+}
+
+.treatment-content ul,
+.treatment-content ol {
+  margin: 0.6em 0;
+  padding-left: 1.5em;
+}
+
+.treatment-content li {
+  margin-bottom: 0.6em;
+}
+
+.treatment-content strong {
+  color: #2d6a4f;
+}
+
+/* Indicateur de gravité */
+.severity-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8em;
+  padding: 0.8em 1.2em;
+  background: #e8f5f0;
+  border-radius: 8px;
+  margin-bottom: 1em;
+  border-left: 4px solid #fcf813;
+}
+
+.severity-indicator span {
+  font-weight: bold;
+  color: #27ae60;
+}
+
+/* Boîte d'avertissement */
+.warning-box {
+  background: #fee;
+  border-left: 5px solid #e74c3c;
+  padding: 1.2em;
+  border-radius: 10px;
+  margin-top: 1em;
+}
+
+.warning-box h5 {
+  color: #c0392b;
+  margin: 0 0 0.6em 0;
+}
+
+.warning-box p,
+.warning-box ol {
+  color: #555;
+  margin: 0;
+  line-height: 1.6;
+  font-size: 0.95em;
+}
+
+.warning-box ol {
+  margin: 0.6em 0;
+  padding-left: 1.5em;
+}
+
+.warning-box li {
+  margin-bottom: 0.4em;
+}
+
+/* Absence de sélection */
+.no-selection {
+  background: #fff;
+  border-radius: 18px;
+  padding: 3em 1.5em;
+  box-shadow: 0 2px 14px rgba(45, 106, 79, 0.1);
+  text-align: center;
+  color: #999;
+  font-size: 1.15em;
+}
+
+.no-selection p {
+  margin: 0;
+}
+
+/* Message original */
+.message-original {
+  max-width: 900px;
+  margin: 3em auto;
+  padding: 0 1.5em;
+  text-align: center;
+}
+
+.message-original blockquote {
+  background: linear-gradient(135deg, #e8f5f0, #f0f9f7);
+  border-left: 5px solid #27ae60;
+  padding: 2em;
+  border-radius: 10px;
+  color: #2d6a4f;
+  font-size: 1.2em;
+  font-style: italic;
+  margin: 0;
+  box-shadow: 0 2px 10px rgba(45, 106, 79, 0.1);
+}
+
+.message-original small {
+  display: block;
+  margin-top: 1em;
+  color: #27ae60;
+  font-weight: bold;
+}
+
+/* Footer */
+footer {
+  background: #222;
+  color: #fff;
+  text-align: center;
+  padding: 1em 0;
+  margin-top: 3em;
+  font-size: 0.95em;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .diagnostic-form,
+  .diagnostic-results {
+    padding: 1.5em 1em;
+  }
+
+  .severity-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .checkbox-group {
+    grid-template-columns: 1fr;
+  }
+
+  .disease-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .confidence-score {
+    align-self: flex-start;
+  }
+
+  .disease-name {
+    font-size: 1.4em;
+  }
+
+  nav {
+    gap: 1em;
+  }
+
+  #user-session {
+    margin-left: 0;
+    margin-top: 0.5em;
+  }
+}
+
+@media (max-width: 480px) {
+  .diagnostic-form,
+  .diagnostic-results {
+    padding: 1.2em 1em;
+  }
+
+  .diagnostic-form h3,
+  .diagnostic-results h3 {
+    font-size: 1.5em;
+  }
+
+  header h1 {
+    font-size: 1.6em;
+  }
+
+  .disease-name {
+    font-size: 1.3em;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.9em 1.5em;
+    font-size: 1em;
+  }
+
+  .treatment-content {
+    padding: 0.8em;
+  }
+
+  .severity-selector {
+    grid-template-columns: 1fr;
+  }
+}
+/* ===== ONGLETS DE DIAGNOSTIC ===== */
+.diagnosis-tabs {
+  display: flex;
+  gap: 1em;
+  margin-bottom: 2em;
+  border-bottom: 2px solid #a8d5ba;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 1em 1.5em;
+  font-size: 1.05em;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  bottom: -2px;
+}
+
+.tab-btn:hover {
+  color: #27ae60;
+}
+
+.tab-btn.active {
+  color: #27ae60;
+  border-bottom-color: #27ae60;
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ===== UPLOAD D'IMAGE ===== */
+.image-upload-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5em;
+  margin-bottom: 2em;
+}
+
+.upload-option {
+  display: flex;
+  justify-content: center;
+}
+
+.upload-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8em;
+  padding: 2em;
+  border: 3px dashed #a8d5ba;
+  border-radius: 15px;
+  background: #f9fff8;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  color: #2d6a4f;
+  font-size: 1.1em;
+  width: 100%;
+  text-align: center;
+}
+
+.upload-btn:hover {
+  border-color: #27ae60;
+  background: #e8f5f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.2);
+}
+
+.upload-btn:active {
+  transform: translateY(0);
+}
+
+/* ===== APERÇU D'IMAGE ===== */
+.image-preview-container {
+  background: #fff;
+  border-radius: 15px;
+  padding: 1.5em;
+  box-shadow: 0 2px 10px rgba(45, 106, 79, 0.1);
+  margin-bottom: 1.5em;
+  border: 2px solid #a8d5ba;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.preview-header h4 {
+  color: #2d6a4f;
+  margin: 0;
+}
+
+.btn-close-preview {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btn-close-preview:hover {
+  background: #c0392b;
+  transform: scale(1.1);
+}
+
+#preview-image {
+  max-width: 100%;
+  max-height: 400px;
+  border-radius: 10px;
+  margin: 1em 0;
+  display: block;
+}
+
+#file-name-display {
+  color: #999;
+  font-size: 0.9em;
+  margin: 0.8em 0 0 0;
+}
+
+/* ===== MODAL DE CHARGEMENT ===== */
+.loading-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.loading-content {
+  background: #fff;
+  padding: 2em;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #a8d5ba;
+  border-top: 5px solid #27ae60;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1em;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-content p {
+  color: #2d6a4f;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* ===== STYLES RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .diagnosis-tabs {
+    gap: 0.5em;
+  }
+
+  .tab-btn {
+    padding: 0.8em 1em;
+    font-size: 0.95em;
+  }
+
+  .image-upload-options {
+    grid-template-columns: 1fr;
+  }
+
+  .upload-btn {
+    padding: 1.5em;
+  }
+}
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #ddd;
+  border-radius: 4px;
+  margin: 1em 0 0.5em;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #27ae60, #229954);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.diagnostic-primary {
+  background: linear-gradient(135deg, #e8f5f0, #f0f9f7);
+  border-left: 5px solid #27ae60;
+  padding: 1em;
+  border-radius: 8px;
+  margin-bottom: 1.5em;
+}
+
+.diagnostic-primary h5 {
+  color: #27ae60;
+  margin: 0 0 0.5em 0;
+}
+
+.treatment-box {
+  background: #f9fff8;
+  padding: 0.8em;
+  margin-bottom: 0.8em;
+  border-radius: 6px;
+  border-left: 3px solid #27ae60;
+}
+
+.treatment-box strong {
+  color: #2d6a4f;
+  display: block;
+  margin-bottom: 0.4em;
+}
+
+.treatment-box small code {
+  background: #e8f5f0;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  color: #27ae60;
+}

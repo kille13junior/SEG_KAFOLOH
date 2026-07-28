@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SEG-KAFOLOH - Recommandation intelligente de cultures agricoles basée sur l'IA et k-NN" />
+  <meta name="keywords" content="agriculture, culture, recommandation, IA, k-NN, sol, climat" />
+  <meta name="author" content="SEGKAFOLOH" />
+  <meta name="theme-color" content="#27ae60" />
+  
+  <title>🌾 SEGKAFOLOH — Recommandation de Culture</title>
+  <link rel="stylesheet" href="recommandation_culture.css" />
+  <link rel="stylesheet" href="settings-styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🌾</text></svg>" />
+</head>
+<body>
+
+  <!-- BACKGROUND -->
+  <div class="background-image"></div>
+
+  <!-- HEADER & NAVIGATION -->
+  <header role="banner">
+    <h1>🌾 SEG-KAFOLOH — Recommandation de Culture</h1>
+    
+    <nav role="navigation" aria-label="Navigation principale">
+      <a href="Agriculture.html" title="Accueil du site">🏠 Accueil</a> 
+      <a href="culture.html" title="Catalogue des cultures">🌱 Cultures</a>
+       <a href="irrigation.html" title="Système d'irrigation">💧 Irrigation</a>
+      <a href="amendement.html" title="amelioration">🌾 Amendement</a>
+      <a href="maladies.html" title="Identification des maladies">🦠 Maladies</a>
+      <a href="chatbot.html" title="Assistant chatbot">💬 Chatbot</a>
+      <a href="recommandation_culture.html" class="active" title="Recommandation de culture">✨ Recommandation</a>
+      <div id="user-session">
+        <a href="login.html" title="Se connecter ou voir mon profil">👤 Connexion</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main role="main">
+
+    <!-- INTRO SECTION -->
+    <section class="intro-message" aria-labelledby="intro-title">
+      <h2 id="intro-title">🤖 Intelligence Artificielle Agricole</h2>
+      <p>
+        Entrez les paramètres de votre sol et de votre climat. Notre algorithme </strong> analyse 
+        <strong>1540 exemples de cultures</strong> pour identifier la culture 
+        la mieux adaptée à vos conditions.
+      </p>
+      <div class="badges" role="list">
+        <span class="badge" role="listitem">📊 22 cultures</span>
+        <span class="badge" role="listitem">🧪 7 paramètres</span>
+        <span class="badge" role="listitem">⚡ Temps réel</span>
+        <span class="badge" role="listitem">🔒 Hors-ligne</span>
+      </div>
+    </section>
+
+    <!-- FORM SECTION -->
+    <section class="form-section" aria-labelledby="form-title">
+      <h2 id="form-title">📋 Paramètres de votre Parcelle</h2>
+
+      <form id="form-parameters" aria-label="Formulaire de paramètres de culture">
+        <div class="form-grid">
+
+          <!-- SOL PARAMETERS -->
+          <fieldset class="param-group">
+            <legend><h3>🧪 Composition du Sol</h3></legend>
+
+            <div class="param-row">
+              <label for="nitrogen">Azote (N) <span class="unit">kg/ha</span></label>
+              <div class="slider-wrap">
+                <input 
+                  type="range" 
+                  id="nitrogen" 
+                  name="nitrogen"
+                  min="0" 
+                  max="200" 
+                  value="80" 
+                  aria-label="Niveau d'azote"
+                  oninput="updateVal('nitrogen','n-val')" 
+                />
+                <span class="val-display" id="n-val" role="status" aria-live="polite">80</span>
+              </div>
+              <div class="range-hint">0 — pauvre &nbsp;|&nbsp; 200 — très riche</div>
+            </div>
+
+            <div class="param-row">
+              <label for="phosphorus">Phosphore (P) <span class="unit">kg/ha</span></label>
+              <div class="slider-wrap">
+                <input 
+                  type="range" 
+                  id="phosphorus" 
+                  name="phosphorus"
+                  min="0" 
+                  max="145" 
+                  value="50" 
+                  aria-label="Niveau de phosphore"
+                  oninput="updateVal('phosphorus','p-val')" 
+                />
+                <span class="val-display" id="p-val" role="status" aria-live="polite">50</span>
+              </div>
+              <div class="range-hint">0 — faible &nbsp;|&nbsp; 145 — élevé</div>
+            </div>
+
+            <div class="param-row">
+              <label for="potassium">Potassium (K) <span class="unit">kg/ha</span></label>
+              <div class="slider-wrap">
+                <input 
+                  type="range" 
+                  id="potassium" 
+                  name="potassium"
+                  min="0" 
+                  max="210" 
+                  value="40" 
+                  aria-label="Niveau de potassium"
+                  oninput="updateVal('potassium','k-val')" 
+                />
+                <span class="val-display" id="k-val" role="status" aria-live="polite">40</span>
+              </div>
+              <div class="range-hint">0 — faible &nbsp;|&nbsp; 210 — très élevé</div>
+            </div>
+
+            <div class="param-row">
+              <label for="ph">pH du Sol</label>
+              <div class="slider-wrap">
+                <input 
+                  type="range" 
+                  id="ph" 
+                  name="ph"
+                  min="3" 
+                  max="10" 
+                  step="0.1" 
+                  value="6.5" 
+                  aria-label="pH du sol"
+                  oninput="updateVal('ph','ph-val')" 
+                />
+                <span class="val-display" id="ph-val" role="status" aria-live="polite">6.5</span>
+              </div>
+              <div class="range-hint">3 — acide &nbsp;|&nbsp; 7 — neutre &nbsp;|&nbsp; 10 — alcalin</div>
+            </div>
+          </fieldset>
+
+          <!-- CLIMATE PARAMETERS -->
+          <fieldset class="param-group">
+            <legend><h3>🌡️ Conditions Climatiques</h3></legend>
+
+            <div class="param-row">
+              <label for="temperature">Température <span class="unit">°C</span></label>
+              <div class="slider-wrap">
+                <input 
+                  type="range" 
+                  id="temperature" 
+                  name="temperature"
+                  min="5" 
+                  max="45" 
+                  value="25" 
+                  aria-label="Température"
+                  oninput="updateVal('temperature','t-val')" 
+                />
+                <span class="val-display" id="t-val" role="status" aria-live="polite">25</span>
+              </div>
+              <div class="range-hint">5°C — froid &nbsp;|&nbsp; 45°C — chaud</div>
+            </div>
+
+            <div class="param-row">
+              <label for="humidity">Humidité <span class="unit">%</span></label>
+              <div class="slider-wrap">
+                <input 
+                  type="range" 
+                  id="humidity" 
+                  name="humidity"
+                  min="10" 
+                  max="100" 
+                  value="70" 
+                  aria-label="Humidité"
+                  oninput="updateVal('humidity','h-val')" 
+                />
+                <span class="val-display" id="h-val" role="status" aria-live="polite">70</span>
+              </div>
+              <div class="range-hint">10% — très sec &nbsp;|&nbsp; 100% — saturé</div>
+            </div>
+
+            <div class="param-row">
+              <label for="rainfall">Pluviométrie <span class="unit">mm/an</span></label>
+              <div class="slider-wrap">
+                <input 
+                  type="range" 
+                  id="rainfall" 
+                  name="rainfall"
+                  min="20" 
+                  max="300" 
+                  value="120" 
+                  aria-label="Pluviométrie annuelle"
+                  oninput="updateVal('rainfall','r-val')" 
+                />
+                <span class="val-display" id="r-val" role="status" aria-live="polite">120</span>
+              </div>
+              <div class="range-hint">20mm — aride &nbsp;|&nbsp; 300mm — pluvieux</div>
+            </div>
+
+            <!-- REGION PRESET -->
+            <div class="param-row">
+              <label for="region">Région / Saison</label>
+              <select 
+                id="region" 
+                name="region"
+                aria-label="Sélectionner une région pour remplir automatiquement les paramètres"
+                onchange="applyRegionPreset()"
+              >
+                <option value="">— Choisissez pour remplir auto —</option>
+                <option value="sahel_sec">🏜️ Sahel — Saison sèche</option>
+                <option value="sahel_pluie">🌧️ Sahel — Saison des pluies</option>
+                <option value="tropical_humide">🌴 Zone tropicale humide</option>
+                <option value="subtropical">☀️ Zone subtropicale</option>
+                <option value="montagne">⛰️ Zone de montagne</option>
+                <option value="cote">🏖️ Zone côtière</option>
+              </select>
+            </div>
+          </fieldset>
+
+        </div>
+
+        <!-- ANALYZE BUTTON -->
+        <div class="btn-center">
+          <button 
+            type="button"
+            id="btn-analyze" 
+            onclick="recommend()"
+            aria-label="Analyser les paramètres et obtenir une recommandation de culture"
+          >
+            🔍 Analyser et Recommander
+          </button>
+        </div>
+      </form>
+
+    </section>
+
+    <!-- RESULTS SECTION -->
+    <section id="results-section" aria-labelledby="results-title" style="display:none;">
+
+      <h2 id="results-title" class="sr-only">Résultats de l'analyse</h2>
+
+      <!-- TOP RECOMMENDATION -->
+      <article id="top-result" aria-live="polite" aria-atomic="true"></article>
+
+      <!-- ALTERNATIVE RECOMMENDATIONS -->
+      <article id="alt-results" aria-live="polite"></article>
+
+      <!-- PARAMETER COMPARISON TABLE -->
+      <article id="param-table" aria-live="polite"></article>
+
+      <!-- RESET BUTTON -->
+      <div class="btn-center" style="margin-top:2em;">
+        <button 
+          type="button"
+          class="btn-secondary" 
+          onclick="resetForm()"
+          aria-label="Réinitialiser le formulaire pour une nouvelle analyse"
+        >
+          🔄 Nouvelle Analyse
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- LOADING MODAL -->
+  <div 
+    id="loading-modal" 
+    role="status" 
+    aria-live="polite"
+    aria-label="Traitement en cours"
+    style="display:none;"
+  >
+    <div class="loading-box">
+      <div class="spinner" aria-hidden="true"></div>
+      <p id="loading-text">Analyse k-NN en cours...</p>
+    </div>
+  </div>
+  <!-- JAVASCRIPT -->
+  <script src="recommandation_culture.js" defer></script>
+    <script src="settings-sync.js"></script>
+  <script src="settings.js"></script>
+
+</body>
+</html>

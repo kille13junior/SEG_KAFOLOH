@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon Profil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="profil.css">
+</head>
+<body>
+  <div class="background-image"></div>
+  <header>
+    <h1>👤 Mon Profil</h1>
+    <nav>
+       <ul class="main-menu">
+        <a href="Untitled-1.html">Accueil</a>
+        <a href="crealab.html">CréaLab CI</a>
+        <a href="zenjeune.html">ZenJeune</a>
+        <a href="profil.html"  class="active"> Mon profil</a>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="profil-bloc" id="profil-bloc">
+      <div class="profil-header">
+        <div class="profil-avatar">
+          <img src="cameleon.jpg" id="profil-avatar-img" alt="Avatar utilisateur">
+        </div>
+        <div class="profil-info">
+          <h2 id="profil-nom"></h2>
+          <div id="profil-email" class="profil-email"></div>
+        </div>
+      </div>
+      <div class="profil-stats">
+        <div><span class="stat-label">👍 Likes reçus:</span> <span id="profil-likes"></span></div>
+        <div><span class="stat-label">🏆 Récompenses:</span> <span id="profil-recompenses"></span></div>
+        <div><span class="stat-label">🎁 Prix:</span> <span id="profil-prix"></span></div>
+        <div><span class="stat-label">🖼️ Œuvres publiées:</span> <span id="profil-oeuvres"></span></div>
+        <div><span class="stat-label">💬 Messages forum:</span> <span id="profil-messages"></span></div>
+      </div>
+      <hr>
+      <h3>Mes œuvres</h3>
+      <div id="profil-liste-oeuvres"></div>
+      <h3>Mes récompenses</h3>
+      <div id="profil-liste-recompenses"></div>
+      <h3>Mes prix gagnés</h3>
+      <div id="profil-liste-prix"></div>
+    </section>
+  </main>
+  <script src="profil.js"></script>
+</body>
+</html>

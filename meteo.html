@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Météo Côte d'Ivoire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="meteo.css">
+</head>
+<body>
+  <div class="background-image"></div>
+  
+  <header>
+    <h1>🌤️ Météo Côte d'Ivoire</h1>
+    <nav>
+      <a href="Agriculture.html">Accueil</a>
+      <a href="meteo.html" class="active">Météo</a>
+      <a href="culture.html">Cultures</a>
+      <a href="irrigation.html">Irrigation</a>
+      <a href="maladies.html">Maladies</a>
+      <a href="chatbot.html">Chatbot</a>
+      <a href="recommandation_culture.html">Recommandation de culture</a>
+      <span id="user-session"></span>
+    </nav>
+  </header>
+
+  <main>
+    <div class="intro-message">
+      <h2>Prévisions Météo en Temps Réel</h2>
+      <p>Découvrez les conditions météorologiques de votre région pour optimiser vos activités agricoles</p>
+    </div>
+
+    <section class="weather-container">
+      <div class="city-selector">
+        <label for="city-select">📍 Choisir votre région:</label>
+        <select id="city-select">
+          <option value="">-- Sélectionne une ville --</option>
+          <option value="abidjan">Abidjan (Zone Côtière Sud)</option>
+          <option value="yamoussoukro">Yamoussoukro (Forêt Centrale)</option>
+          <option value="bouake">Bouaké (Zone de Transition)</option>
+          <option value="korhogo">Korhogo (Savane Nord)</option>
+          <option value="san-pedro">San-Pédro (Zone Côtière Ouest)</option>
+          <option value="man">Man (Zone Montagneuse)</option>
+        </select>
+      </div>
+
+      <div class="weather-display" id="weather-display" style="display:none;">
+        <div class="weather-card">
+          <h2 id="city-name"></h2>
+          <div class="region-info" id="region-info"></div>
+          
+          <div class="weather-info">
+            <div class="temperature-section">
+              <div class="temperature" id="temperature">--°C</div>
+              <div class="weather-icon" id="weather-icon">🌤️</div>
+              <div class="description" id="description">--</div>
+            </div>
+            
+            <div class="details">
+              <div class="detail-item">
+                <span class="label">💧 Humidité:</span>
+                <span class="value" id="humidity">--%</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">🌡️ Ressenti:</span>
+                <span class="value" id="feels-like">--°C</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">💨 Vent:</span>
+                <span class="value" id="wind-speed">-- km/h</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">🔽 Pression:</span>
+                <span class="value" id="pressure">-- mb</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="advice-section">
+            <h3>💡 Conseils Météo Généraux</h3>
+            <div id="advice-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-selection" id="no-selection">
+        <p>Sélectionne une ville pour voir la météo 👆</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="meteo.js"></script>
+</body>
+</html>
